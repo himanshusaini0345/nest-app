@@ -52,7 +52,59 @@
 // console.log(arr.hasOwnProperty('length'));
 // console.log(Array.prototype.length);
 // console.log(Array.isArray(Array.prototype));
-const arr = [1, 2, 3];
-console.log(Object.getOwnPropertyDescriptor(arr,"length"))
+// const arr = [1, 2, 3];
+// console.log(Object.getOwnPropertyDescriptor(arr,"length"))
 // delete arr.length;
 // console.log(arr.length)
+
+// console.log(2 === 2);
+// console.log(2 === "2");
+// console.log([] === [])
+// const obj = [1,2,3,4];
+// const obj2 = obj;
+// obj2.push(5);
+// console.log(obj)
+// const obj = {x:1,y:[1, 2, 3, 4]};
+// const obj2 = obj;
+// obj2.y.push(5);
+// obj2.x = 2;
+// console.log(obj);
+// console.log(obj2);
+
+function deepClone(obj) {
+  if (obj === null || typeof obj !== 'object') return obj;
+  console.log(obj + ' : ' + typeof obj);
+  let result = Array.isArray(obj) ? [] : {};
+  console.log(result);
+
+  for (let key in obj) {
+    console.log(obj[key]);
+    if (Object.hasOwn(obj, key)) {
+      result[key] = deepClone(obj[key]);
+    }
+  }
+  if(obj instanceof Date) return new Date(obj)
+  console.log('done');
+  return result;
+}
+let createCounter = function () {
+  let count = 0;
+
+  return function () {
+    count++;
+    return count;
+  };
+};
+const obj = {
+  a: 1,
+  b: '2',
+  c: createCounter,
+  d: { e: 3, f: '4', g: [2, 3, 4], h: { i: '5' } },
+  e: new Date()
+};
+
+const obj2 = deepClone(obj);
+const obj3 = obj;
+console.log(obj.e === obj2.e);
+console.log(obj.e === obj3.e);
+console.log(obj.e.getTime() === obj2.e.getTime());
