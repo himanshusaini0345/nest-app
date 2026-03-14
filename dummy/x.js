@@ -71,40 +71,85 @@
 // console.log(obj);
 // console.log(obj2);
 
-function deepClone(obj) {
-  if (obj === null || typeof obj !== 'object') return obj;
-  console.log(obj + ' : ' + typeof obj);
-  let result = Array.isArray(obj) ? [] : {};
-  console.log(result);
+// function deepClone(obj) {
+//   if (obj === null || typeof obj !== 'object') return obj;
+//   console.log(obj + ' : ' + typeof obj);
+//   let result = Array.isArray(obj) ? [] : {};
+//   console.log(result);
 
-  for (let key in obj) {
-    console.log(obj[key]);
-    if (Object.hasOwn(obj, key)) {
-      result[key] = deepClone(obj[key]);
-    }
-  }
-  if(obj instanceof Date) return new Date(obj)
-  console.log('done');
-  return result;
-}
-let createCounter = function () {
-  let count = 0;
+//   for (let key in obj) {
+//     console.log(obj[key]);
+//     if (Object.hasOwn(obj, key)) {
+//       result[key] = deepClone(obj[key]);
+//     }
+//   }
+//   if(obj instanceof Date) return new Date(obj)
+//   console.log('done');
+//   return result;
+// }
+// function deepCloneNoDate(obj) {
+//   if (obj === null || typeof obj !== 'object') return obj;
+//   console.log(obj + ' : ' + typeof obj);
+//   let result = Array.isArray(obj) ? [] : {};
+//   console.log(result);
 
-  return function () {
-    count++;
-    return count;
+//   for (let key in obj) {
+//     console.log(obj[key]);
+//     if (Object.hasOwn(obj, key)) {
+//       result[key] = deepClone(obj[key]);
+//     }
+//   }
+//   if (obj instanceof Date) return new Date(obj);
+//   console.log('done');
+//   return result;
+// }
+// module.exports = {deepClone, deepCloneNoDate};
+
+// let createCounter = function () {
+//   let count = 0;
+
+//   return function () {
+//     count++;
+//     return count;
+//   };
+// };
+// const obj = {
+//   a: 1,
+//   b: '2',
+//   c: createCounter,
+//   d: { e: 3, f: '4', g: [2, 3, 4], h: { i: '5' } },
+//   e: new Date()
+// };
+
+// const obj2 = deepClone(obj);
+// const obj3 = obj;
+// console.log(obj.e === obj2.e);
+// console.log(obj.e === obj3.e);
+// console.log(obj.e.getTime() === obj2.e.getTime());
+
+// let str = "hello";
+// str[0] = "H";
+// console.log(str);
+
+// var x = 1;
+// test()
+// function test(){
+//   console.log(b);
+//   let b = 2;
+// }
+
+// bar();
+
+// function bar(){
+//   console.log('bar')
+// }
+// var bar = 10;
+
+function sum(a) {
+  return function (b) {
+    if (b === undefined) return a;
+    return sum(a + b);
   };
-};
-const obj = {
-  a: 1,
-  b: '2',
-  c: createCounter,
-  d: { e: 3, f: '4', g: [2, 3, 4], h: { i: '5' } },
-  e: new Date()
-};
+}
 
-const obj2 = deepClone(obj);
-const obj3 = obj;
-console.log(obj.e === obj2.e);
-console.log(obj.e === obj3.e);
-console.log(obj.e.getTime() === obj2.e.getTime());
+console.log(sum(2)(3)(3))
