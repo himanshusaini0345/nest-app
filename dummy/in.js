@@ -25,3 +25,28 @@
 //         process.stdout.write(`${n}, `)
 //     }
 // }
+
+function longestSubArrayWithSum2(arr = [1, 2, 3, 1, 1, 1, 1], k = 3) {
+  const map = {};
+  let sum = 0;
+  let n = arr.length;
+  let left = -1;
+  let right = -1;
+  for (let i = 0; i < n; i++) {
+    sum += arr[i];
+    
+    if (Object.hasOwn(map,sum - k)) {
+      if (left === -1 || right - left + 1 < i - map[sum - k]) {
+        left = map[sum - k] + 1;
+        right = i;
+      }
+    }
+    map[sum] = i;
+  }
+
+  return [left, right];
+}
+
+// console.log(longestSubArrayWithSum2());
+
+// monotonic dequeue
